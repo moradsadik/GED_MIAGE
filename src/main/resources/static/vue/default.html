@@ -1,0 +1,35 @@
+<div>
+
+    <div ng-show="loading == 0" class="alert alert-block "><h4>CHARGEMENT.........</h4></div>
+    <div ng-show="loading == 1" class="alert alert-error "><h4>ERROR UPLOAD</h4></div>
+    <div ng-show="loading == 2" class="alert alert-success "><h4>UPLOAD SUCCESS</h4></div>
+    <div class="clearfix"></div>
+    <div class="well ">
+        <h2>Upoload File : </h2>
+        <div>
+            <input type="file" ng-file="files" name="files" multiple/><br>
+            <button class="btn btn-primary" ng-click="uploadFile()">Upload</button>
+        </div>
+        <div style="margin-top:10px" ng-show="false">
+                      <span ng-repeat='file in files' style="position:relative;display:inline-block;margin-right:10px;margin-bottom:10px">
+                            <img class="img-polaroid" width="140" height="140" ng-src="{{file}}">
+                            <button ng-click="deleteFile(file)" class="imgUploadItem">x</button>
+                      </span>
+        </div>
+    </div>
+
+    <div style="margin-top:10px" ng-show="documents">
+        <table class="table table-striped">
+            <tr>
+                <td>Name</td> <td>Type</td> <td>Size</td> <td>Byte</td>
+            </tr>
+            <tr ng-repeat='f in documents' >
+                <td>{{f.name}}</td>
+                <td>{{f.type}}</td>
+                <td>{{f.size}}</td>
+                <td>{{f.file | limitTo:60 }}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>

@@ -1,0 +1,166 @@
+<div class="tabbable tabs-top" ng-init="tab=1">
+    <ul class="nav nav-tabs">
+        <li><a></a></li>
+        <li ng-class="{'active': tab == 1}" ng-click="tab=1"><a><strong>Consultations Des Documents</strong></a></li>
+        <li ng-class="{'active': tab == 2}" ng-click="tab=2"><a><strong>Ajouter Un Document</strong></a></li>
+        <li ng-class="{'active': tab == 3}" ng-click="tab=3"><a><strong>Demande Changement De Group</strong></a></li>
+    </ul>
+    <div class="tab-content">
+
+        <div class="tab-pane" ng-class="{'active': tab == 1}">
+
+            <div class="alert alert-block" ng-hide="documents.length > 0">
+                <b>LA LISTE DES DOCUMENTS EST VIDE.</b>
+            </div>
+
+            <div ng-show="documents.length">
+                <div class="right">
+                    <div class="input-prepend">
+                        <span class="add-on"><i class="fa fa-search"></i></span>
+                        <input class="mgb0" type="text" name="recherche" ng-model="mot" placeholder="Tapez un mot cle ..."/>
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+                <div class="right">
+                </div>
+                <table class="table table-striped">
+                    <tr>
+                        <td class="td-titre" ng-click="triByField('name')"> Titre</td>
+                        <td class="td-titre" ng-click="triByField('description')"> Description</td>
+                        <td class="td-titre" ng-click="triByField('categorie')"> Categorie</td>
+                        <td class="td-titre" ng-click="triByField('type')"> Type</td>
+                        <td class="td-titre" ng-click="triByField('size')"> Size</td>
+                        <td class="td-titre" ng-click="triByField('cles')"> Mots Cles</td>
+                        <td class="td-titre" ng-click="triByField('groupes')"> Group</td>
+                        <td class="td-titre" ng-click="triByField('date')"> Date</td>
+                        <td class="td-titre" colspan="2">Operation</td>
+                    </tr>
+                    <tr ng-repeat="d in documents | orderBy:order:sens | pagination:page:nbpage | filter: inField">
+                        <td><b ng-bind-html="d.name | hilight:mot "></b></td>
+                        <td ng-bind-html="d.description | hilight:mot"></td>
+                        <td>{{d.categorie.name | uppercase}}</td>
+                        <td> {{type[d.type] | uppercase }}</td>
+                        <td><b>{{d.size | Mo}}</b></td>
+                        <td style="width:120px">
+                            <li ng-repeat="cle in d.cles" class="tag"> {{cle.name}}</li>
+                        </td>
+                        <td style="width:120px">
+                            <li ng-repeat="group in d.groupes" class=" group"> {{group.name}}</li>
+                        </td>
+                        <td><b>{{d.date | date : 'dd/MM/y , HH:mm:ss'}}</b></td>
+                        <td>
+                            <button class="btn" ng-click="downloadDocument(d)"><span class="fa fa-download"></span></button>
+                        </td>
+                        <td>
+                            <button class="btn" ng-click="deleteDocument(d)">remove</button>
+                        </td>
+                    </tr>
+                </table>
+                <div class="pagination pagination-right">
+                    <ul>
+                        <li ng-repeat="d in documents | pages:nbpage"
+                            ng-class="getPageClass($index+1)">
+                            <a ng-click="getPage($index+1)">{{$index+1}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tab-pane" ng-class="{'active': tab == 2}">
+
+            <div class="well" ng-show="addDocNotif == -1;">
+                Formulaire d'ajout d'un documnet  <b>:</b> veuillez remplir tout les champs svp.
+            </div>
+
+            <div class="alert alert-error" ng-show="addDocNotif == 2">Erreur</div>
+            <div class="alert alert-success" ng-show="addDocNotif == 1"> Success</div>
+            <div class="alert alert-info" ng-show="addDocNotif == 0">Loading ...</div>
+
+            <form class="form-horizontal" name="ajoutDocument" novalidate>
+                <div class="control-group">
+                    <label for="name" class="control-label">Nom Du Fichier</label>
+
+                    <div class="controls">
+                        <input type="text" id="name" name="name" ng-model="docInfo.name"
+                               class="input-xlarge" placeholder="nom du fichier..." required/>
+
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="group" class="control-label">Choisir Un/Plusieur Group</label>
+
+                    <div class="controls">
+                        <select name="group" id="group" ng-model="docInfo.group" multiple="multiple"
+                                required>
+                            <option ng-repeat="g in groupes" value="{{g.id}}">{{g.name}}</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="categorie" class="control-label">Choisir Une Categorie</label>
+
+                    <div class="controls">
+                        <select name="categorie" id="categorie" ng-model="docInfo.categorie"
+                                required>
+                            <option value="">Select Une Categorie</option>
+                            <option ng-repeat="c in categories" value="{{c.id}}">{{c.name}}</option>
+
+                        </select>
+
+                        <!--<select ng-options="val as desc for item in items"></select>-->
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="description" class="control-label">Description</label>
+
+                    <div class="controls">
+                        <textarea name="description" id="description" ng-model="docInfo.description" style="width:400px" rows="5" required></textarea>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="files" class="control-label">Fichier</label>
+
+                    <div class="controls" style="position: relative">
+                        <input type="file" id="files" ng-file="files" name="files" required/>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="tags" class="control-label">Mot cles :
+                        <small>(pour reporting)</small>
+                    </label>
+
+                    <div class="controls">
+                        <div class="">
+                            <input type="text" id="tags" ng-model="docInfo.cles" name="cles" class="input-xlarge"
+                                   placeholder="tags separer par vergile : a, b, c...."
+                                   ng-model-options="{updateOn : 'blur'}"
+                                   required/>
+                            <br/>
+
+                            <div style="margin-top: 10px" ng-show="ajoutDocument.cles.$dirty">
+                                <span class="tag" ng-repeat='tag in docInfo.cles.split(",")'>{{tag}}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success"
+                            ng-disabled="ajoutDocument.$invalid"
+                            ng-click="saveDocument()">Ajouter le Document
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="tab-pane" ng-class="{'active': tab == 3}">
+            <strong>PAGE DES DEMANDES DE CHANGEMENT GROUP.</strong>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,258 @@
+
+
+
+<div class="tabbable tabs-left">
+    <ul class="nav nav-tabs" >
+        <li><a></a></li>
+        <li ng-class="{'active': tab == 1}" ng-click="tab=1"><a><strong>Gestoion des utilisateurs</strong></a></li>
+        <li ng-class="{'active': tab == 2}" ng-click="tab=2"><a><strong>Gestion des categories</strong></a></li>
+        <li ng-class="{'active': tab == 3}" ng-click="tab=3"><a><strong>Gestion des group</strong></a></li>
+        <li ng-class="{'active': tab == 6}" ng-click="tab=6"><a><strong>Gestion des Roles</strong></a></li>
+        <li ng-class="{'active': tab == 4}" ng-click="tab=4"><a><strong>Demandes employes</strong></a></li>
+        <li ng-class="{'active': tab == 5}" ng-click="tab=5"><a><strong>Gestion archivage</strong></a></li>
+    </ul>
+    <div class="tab-content">
+
+        <div class="tab-pane"  ng-class="{'active': tab == 1}">
+            <div class="well"><strong>GESTION DES UTILISATEUR.</strong></div>
+            <div class="alert alert-block" ng-hide="users.length > 0">
+                <b>LA LISTE DES USERS EST VIDE.</b>
+            </div>
+            <div ng-show="users.length ">
+
+                <table class="table table-striped">
+                    <tr>
+                        <td class="td-titre" ng-click="triByField('name')"> Name</td>
+                        <td class="td-titre"> Prenom</td>
+                        <td class="td-titre"> Mail</td>
+                        <td class="td-titre"> Groupes</td>
+                        <td class="td-titre"> Role</td>
+                        <td class="td-titre" colspan="1">Active</td>
+                        <td class="td-titre" colspan="1">Operation</td>
+                    </tr>
+                    <tr ng-repeat="u in users | orderBy:order:sens | pagination:page:nbpage">
+                        <td><b>{{u.name}}</b></td>
+                        <td><b>{{u.prenom}}</b></td>
+                        <td><b>{{u.mail}}</b></td>
+                        <td>
+                            <li ng-repeat="group in u.groupes" class=" group"> {{group.name}}</li>
+                        </td>
+                        <td>
+                            <li ng-repeat="r in u.roles" class=" group"> {{r.name}}</li>
+                        </td>
+                        <td>
+                            <button class="btn btn-user"
+                                    ng-class="{'fa fa-check-circle-o actived': u.active, 'fa fa-ban reject' : !u.active}"
+                                    ng-click="approveUser(u)"></button>
+                        </td>
+                        <td style="padding: 8px 0">
+                            <button class="btn fa fa-times-circle-o btn-user remove"  ng-click="deleteUser(u)"></button>
+                            <button class="btn fa fa-pencil btn-user "  ng-click="editUser(u)"></button>
+                        </td>
+                    </tr>
+                </table>
+                <div class="pagination pagination-right">
+                    <ul>
+                        <li ng-repeat="d in documents | pages:nbpage"
+                            ng-class="getPageClass($index+1)">
+                            <a ng-click="getPage($index+1)">{{$index+1}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane"  ng-class="{'active': tab == 2}">
+            <div class="well mgb">Creation Des Catgories.</div>
+            <div class="alert alert-error" ng-show="categorieNotif == 2">Erreur</div>
+            <div class="alert alert-success" ng-show="categorieNotif == 1"> Success</div>
+            <div class="alert alert-info" ng-show="categorieNotif == 0">Loading ...</div>
+            <form class="form-horizontal" name="ajoutCategorie" novalidate>
+                <div class="control-group">
+                    <label for="name" class="control-label">Nom Du Categorie</label>
+
+                    <div class="controls">
+                        <input type="text" id="name" name="name" ng-model="categorie.name"
+                               class="input-xlarge" placeholder="nom du catgorie..." required/>
+
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success"
+                            ng-disabled="ajoutCategorie.$invalid"
+                            ng-click="addCategorie(categorie)">Ajouter la Categories
+                    </button>
+                </div>
+            </form>
+
+            <div class="alert alert-block" ng-hide="categories.length > 0">
+                <b>LA LISTE DES CATEGORIS EST VIDE.</b>
+            </div>
+
+            <div ng-show="categories.length">
+
+                <table class="table table-striped">
+                    <tr>
+                        <td class="td-titre" ng-click="triByField('id')"> Id</td>
+                        <td class="td-titre" ng-click="triByField('name')"> Name</td>
+                        <td class="td-titre" > Documents</td>
+                        <td class="td-titre" colspan="1">Operation</td>
+                    </tr>
+                    <tr ng-repeat="c in categories | orderBy:order:sens | pagination:page:nbpage">
+                        <td>{{c.id }}</td>
+                        <td>{{c.name | uppercase}}</td>
+                        <td>{{c.documents }}</td>
+
+                        <td>
+                            <button class="btn" ng-click="deleteCategorie(c)">remove</button>
+                        </td>
+                    </tr>
+                </table>
+                <div class="pagination pagination-right">
+                    <ul>
+                        <li ng-repeat="d in documents | pages:nbpage"
+                            ng-class="getPageClass($index+1)">
+                            <a ng-click="getPage($index+1)">{{$index+1}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tab-pane"  ng-class="{'active': tab == 3}">
+            <div class="well"><strong>GESTION DES GROUP.</strong></div>
+            <div class="alert alert-error" ng-show="groupeNotif == 2">Erreur</div>
+            <div class="alert alert-success" ng-show="groupeNotif == 1"> Success</div>
+            <div class="alert alert-info" ng-show="groupeNotif == 0">Loading ...</div>
+            <form class="form-horizontal" name="ajoutGroup" novalidate>
+                <div class="control-group">
+                    <label for="ne" class="control-label">Nom Du Groupe</label>
+                    <div class="controls">
+                        <input type="text" id="ne" name="name" ng-model="groupe.name"
+                               class="input-xlarge" placeholder="nom du groupe..." required/>
+
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success"
+                            ng-disabled="ajoutGroup.$invalid"
+                            ng-click="addGroupe(groupe)">
+                        Ajouter le Groupe
+                    </button>
+                </div>
+            </form>
+
+            <div class="alert alert-block" ng-hide="groupes.length > 0">
+                <b>LA LISTE DES GROUPES EST VIDE.</b>
+            </div>
+
+            <div ng-show="groupes.length">
+
+                <table class="table table-striped">
+                    <tr>
+                        <td class="td-titre" ng-click="triByField('id')"> Id</td>
+                        <td class="td-titre" ng-click="triByField('name')"> Name</td>
+                        <td class="td-titre" > Users</td>
+                        <td class="td-titre" > Documents</td>
+                        <td class="td-titre" colspan="1">Operation</td>
+                    </tr>
+                    <tr ng-repeat="g in groupes | orderBy:order:sens | pagination:page:nbpage">
+                        <td>{{g.id }}</td>
+                        <td>{{g.name | uppercase}}</td>
+                        <td>{{g.users }}</td>
+                        <td>{{g.documents }}</td>
+
+                        <td>
+                            <button class="btn" ng-click="deleteGroupe(g)">remove</button>
+                        </td>
+                    </tr>
+                </table>
+                <div class="pagination pagination-right">
+                    <ul>
+                        <li ng-repeat="d in documents | pages:nbpage"
+                            ng-class="getPageClass($index+1)">
+                            <a ng-click="getPage($index+1)">{{$index+1}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="tab-pane"  ng-class="{'active': tab == 4}">
+            <strong>GESTION DES DEMANDES EMPLOYES.</strong>
+        </div>
+        <div class="tab-pane"  ng-class="{'active': tab == 5}">
+            <strong>GESTION ARCHIVEGES.</strong>
+        </div>
+
+        <div class="tab-pane"  ng-class="{'active': tab == 6}">
+
+            <div class="well"><strong>GESTION DES Role.</strong></div>
+            <div class="alert alert-error" ng-show="roleNotif == 2">Erreur</div>
+            <div class="alert alert-success" ng-show="roleNotif == 1"> Success</div>
+            <div class="alert alert-info" ng-show="roleNotif == 0">Loading ...</div>
+            <form class="form-horizontal" name="ajoutRole" novalidate>
+                <div class="control-group">
+                    <label for="ny" class="control-label">Nom Du role</label>
+                    <div class="controls">
+                        <input type="text" id="ny" name="name" ng-model="role.name"
+                               class="input-xlarge" placeholder="nom du role..." required/>
+
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="level" class="control-label">Niveau de responsabilité</label>
+                    <div class="controls">
+                        <select name="level" id="level" ng-model="role.level">
+                            <option value="">Select level</option>
+                            <option ng-repeat="i in [10,20,30,40,50,60,70,80,90,100]" value="{{i}}">{{i}}</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success"
+                            ng-disabled="ajoutRole.$invalid"
+                            ng-click="addRole(role)">
+                        Ajouter le Role
+                    </button>
+                </div>
+            </form>
+
+            <div class="alert alert-block" ng-hide="roles.length > 0">
+                <b>LA LISTE DES GROUPES EST VIDE.</b>
+            </div>
+
+            <div ng-show="roles.length">
+
+                <table class="table table-striped">
+                    <tr>
+                        <td class="td-titre" ng-click="triByField('id')"> Id</td>
+                        <td class="td-titre" ng-click="triByField('name')"> Name</td>
+                        <td class="td-titre" > Level</td>
+                        <td class="td-titre" > Opertaion</td>
+                    </tr>
+                    <tr ng-repeat="r in roles | orderBy:order:sens | pagination:page:nbpage">
+                        <td>{{r.id }}</td>
+                        <td>{{r.name | uppercase}}</td>
+                        <td>{{r.level }}</td>
+
+                        <td>
+                            <button class="btn" ng-click="deleteRole(r)">remove</button>
+                        </td>
+                    </tr>
+                </table>
+                <div class="pagination pagination-right">
+                    <ul>
+                        <li ng-repeat="d in documents | pages:nbpage"
+                            ng-class="getPageClass($index+1)">
+                            <a ng-click="getPage($index+1)">{{$index+1}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
