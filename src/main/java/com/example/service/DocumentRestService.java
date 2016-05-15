@@ -118,7 +118,7 @@ public class DocumentRestService {
             response.setHeader("Content-Disposition", "attachment;filename=\"" + file.getName() + "\"");
 
             FileCopyUtils.copy(in, out);
-
+            System.out.println("downlond file"+file);
             out.flush();
             in.close();
             out.close();
