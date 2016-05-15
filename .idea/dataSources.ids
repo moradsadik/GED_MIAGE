@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - db@localhost" uuid="e6ae72bf-5953-42ea-b9fb-e37809689e4a">
+    <database-info product="MySQL" version="5.5.20-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="db"/>
+    <table name="categorie" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_9sk3sufrfsudwfkn5oamrliok" table="document" schema="" catalog="db" columns="categorie_id"/>
+    </table>
+    <table name="cle" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="document_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_grohdd2isvlm6a5xsou750dkf" columns="document_id" ref-table="document" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_grohdd2isvlm6a5xsou750dkf" unique="false" columns="document_id"/>
+    </table>
+    <table name="demande" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="demande_type" sqlType="VARCHAR" precision="31" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="director2" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_rroks8wgpunwo6614fsu70ko3" columns="id" ref-table="person2" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="document" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="etat" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="file" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="true" jdbcType="-4"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="path" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="size" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="type" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="version" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="categorie_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_9sk3sufrfsudwfkn5oamrliok" columns="categorie_id" ref-table="categorie" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_esb799ihho7ek44mndbsvmyit" columns="user_id" ref-table="user" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_grohdd2isvlm6a5xsou750dkf" table="cle" schema="" catalog="db" columns="document_id"/>
+      <exported-key name="FK_lcgj70p589t49fiuse3g08bx7" table="document_group" schema="" catalog="db" columns="document_id"/>
+      <exported-key name="FK_42im82wdbbke3f9dkit800x04" table="tag" schema="" catalog="db" columns="document_id"/>
+      <index name="FK_9sk3sufrfsudwfkn5oamrliok" unique="false" columns="categorie_id"/>
+      <index name="FK_esb799ihho7ek44mndbsvmyit" unique="false" columns="user_id"/>
+    </table>
+    <table name="document_group" schema="" catalog="db" type="TABLE">
+      <column name="document_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="group_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="FK_evv4hajbowglmljdb77u23iwj" columns="group_id" ref-table="groupe" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_lcgj70p589t49fiuse3g08bx7" columns="document_id" ref-table="document" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_evv4hajbowglmljdb77u23iwj" unique="false" columns="group_id"/>
+      <index name="FK_lcgj70p589t49fiuse3g08bx7" unique="false" columns="document_id"/>
+    </table>
+    <table name="enseignant2" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_jg49img83a2b02wgh25ipq3ij" columns="id" ref-table="person2" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="etudiant" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_cpclf7ua7yae7maqi54hus1eg" columns="id" ref-table="person2" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="etudiant2" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_9l4rrw1btgv12etg4t4amye8d" columns="id" ref-table="person2" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="groupe" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="owner_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_jx32y1rwnquvvifj8sostpn42" columns="owner_id" ref-table="user" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_evv4hajbowglmljdb77u23iwj" table="document_group" schema="" catalog="db" columns="group_id"/>
+      <exported-key name="FK_789v3ejjs9uj5vu1ufexj2tbv" table="user_group" schema="" catalog="db" columns="group_id"/>
+      <index name="FK_jx32y1rwnquvvifj8sostpn42" unique="false" columns="owner_id"/>
+    </table>
+    <table name="notification" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="message" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="person" schema="" catalog="db" type="TABLE">
+      <column name="personne_job" sqlType="VARCHAR" precision="31" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="etudiant" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="prof" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="direct" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="person2" schema="" catalog="db" type="TABLE">
+      <column name="personne_job" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_rroks8wgpunwo6614fsu70ko3" table="director2" schema="" catalog="db" columns="id"/>
+      <exported-key name="FK_jg49img83a2b02wgh25ipq3ij" table="enseignant2" schema="" catalog="db" columns="id"/>
+      <exported-key name="FK_cpclf7ua7yae7maqi54hus1eg" table="etudiant" schema="" catalog="db" columns="id"/>
+      <exported-key name="FK_9l4rrw1btgv12etg4t4amye8d" table="etudiant2" schema="" catalog="db" columns="id"/>
+    </table>
+    <table name="role" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="level" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_it77eq964jhfqtu54081ebtio" table="user_role" schema="" catalog="db" columns="role_id"/>
+    </table>
+    <table name="tag" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="document_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_42im82wdbbke3f9dkit800x04" columns="document_id" ref-table="document" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_42im82wdbbke3f9dkit800x04" unique="false" columns="document_id"/>
+    </table>
+    <table name="test" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="mot" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id,mot"/>
+    </table>
+    <table name="user" schema="" catalog="db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="active" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
+      <column name="mail" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="prenom" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_esb799ihho7ek44mndbsvmyit" table="document" schema="" catalog="db" columns="user_id"/>
+      <exported-key name="FK_jx32y1rwnquvvifj8sostpn42" table="groupe" schema="" catalog="db" columns="owner_id"/>
+      <exported-key name="FK_mps81qti05d9he0y66y5jt845" table="user_group" schema="" catalog="db" columns="user_id"/>
+      <exported-key name="FK_apcc8lxk2xnug8377fatvbn04" table="user_role" schema="" catalog="db" columns="user_id"/>
+    </table>
+    <table name="user_group" schema="" catalog="db" type="TABLE">
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="group_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="FK_789v3ejjs9uj5vu1ufexj2tbv" columns="group_id" ref-table="groupe" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_mps81qti05d9he0y66y5jt845" columns="user_id" ref-table="user" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_789v3ejjs9uj5vu1ufexj2tbv" unique="false" columns="group_id"/>
+      <index name="FK_mps81qti05d9he0y66y5jt845" unique="false" columns="user_id"/>
+    </table>
+    <table name="user_role" schema="" catalog="db" type="TABLE">
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="role_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="FK_apcc8lxk2xnug8377fatvbn04" columns="user_id" ref-table="user" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_it77eq964jhfqtu54081ebtio" columns="role_id" ref-table="role" ref-schema="" ref-catalog="db" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_apcc8lxk2xnug8377fatvbn04" unique="false" columns="user_id"/>
+      <index name="FK_it77eq964jhfqtu54081ebtio" unique="false" columns="role_id"/>
+    </table>
+  </data-source>
+</component>
