@@ -1,1 +1,8 @@
 /target/
+.setting/
+.idea/
+.mvn/*
+.cl*
+.proj*
+mvnw
+mvnw.cmd
