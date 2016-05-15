@@ -1,0 +1,63 @@
+<div class="well">
+    PAGE D'INSCRIPTION.
+</div>
+<div class="alert alert-error" ng-show="inscriptionNotif == 2">Erreur</div>
+<div class="alert alert-success" ng-show="inscriptionNotif == 1"> Success</div>
+<div class="alert alert-info" ng-show="inscriptionNotif == 0">Loading ...</div>
+<form class="form-horizontal" name="ajoutUser" novalidate>
+    <div class="control-group">
+        <label for="name" class="control-label">Nom  </label>
+
+        <div class="controls">
+            <input type="text" id="name" name="name" ng-model="user.name"
+                   class="input-xlarge" placeholder="nom ..." required/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="prenom" class="control-label">Prenom  </label>
+
+        <div class="controls">
+            <input type="text" id="prenom" name="prenom" ng-model="user.prenom"
+                   class="input-xlarge" placeholder="prenom..." required/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="password" class="control-label">Password  </label>
+
+        <div class="controls">
+            <input type="text" id="password" name="password" ng-model="user.password"
+                   class="input-xlarge" placeholder="password..." required/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="name" class="control-label">Mail </label>
+
+        <div class="controls">
+            <input type="email" id="mail" name="mail" ng-model="user.mail"
+                   class="input-xlarge" placeholder="mail..." required/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="group" class="control-label">Choisir Un/Plusieur Group</label>
+        <div class="controls">
+            <select name="group" id="group" ng-model="param.groupes" multiple="multiple" required>
+                <option ng-repeat="g in groupes" value="{{g.id}}">{{g.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="group" class="control-label">Choisir Un/Plusieur Role</label>
+        <div class="controls">
+            <select name="role" id="role" ng-model="param.roles" multiple required>
+                <!--<option value="">Select Role</option>-->
+                <option ng-repeat="r in roles" value="{{r.id}}">{{r.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-success"
+                ng-disabled="ajoutUser.$invalid"
+                ng-click="addUser(user, param)">Ajouter
+        </button>
+    </div>
+</form>

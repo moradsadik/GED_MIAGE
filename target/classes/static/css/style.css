@@ -1,0 +1,26 @@
+
+.mgb0{margin-bottom: 0px !important}
+
+body{ font-family: "Raleway"; }
+.imgUploadItem{ position: absolute; top: -6px; right: -7px;background: #DE1B2A; color: #fff; border: 1px solid #AF0310;border-radius: 100%; width: 20px; height: 20px; line-height: 19px; text-align: center; font-weight: bold;text-decoration: none;padding: 0; }
+.large{ text-align: center; font-size: 48px; }
+.large > i{ text-align: center; border-radius: 100%; padding: 30px; background: #F3F3F3; color: #001a41; height: 40px; line-height: 40px; }
+.right{float:right}
+.left{float:left}
+
+.tag{ display: inline-block; padding: 5px 10px; background: #A5A2A2; margin-right: 5px; margin-bottom: 5px; color: #fff; font-size: 15px; }
+.pagination li.active a{ background: #1D95B9 !important; color: #fff !important; border-radius: 0 !important; border-color: #1D95B9 !important; }
+.pagination li a{ border-radius: 0 !important; background: #D4D5D6 !important; color: #34383A !important; border-color: #D4D5D6 !important; font-weight: bold !important; }
+.td-titre{cursor:pointer;background: #2E7E96 !important;color: #fff;font-weight: bold;border: 0;text-transform: uppercase;border-width: 0 0 3px 0 !important;border-style: solid;border-color: #186982;}
+.tag, .group{list-style: none;display: inline-block;float: left;margin-right: 5px;margin-bottom: 5px;color:#fff;background: #568484 !important;padding: 5px 10px;border: 1px solid #456767;}
+.filterAndSearch{margin-bottom: 10px; display: inline-block}
+.hilight{color: #fff;background: #f89406;padding: 5px;border: 1px solid #DA8711;border-radius: 4px;}
+span.add-on i.fa.fa-search { padding: 5px 5px; line-height: 1px; }
+.btn-user{font-size: 21px; background: #F9F9F9;}
+.btn-user.actived {color: #238C23;}
+.btn-user.reject {color: #FD0700;}
+.btn-user.remove {color: #d00f57;}
+
+.notif {background: #ccc;width: 15px;border: 3px solid #fff;padding: 2px;color: #fff;height: 15px;border-radius: 100%;display: inline-block;margin-top: 2px;margin-right: 2px;text-align: center;line-height: 13px;font-size: 10px;font-weight: bold;}
+.notif.good {background: #449A44;}
+.notif.bad {background: #EC2222;}

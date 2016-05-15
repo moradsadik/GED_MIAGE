@@ -1,0 +1,9 @@
+<div class="navbar" >
+    <div class="navbar-inner" style=" padding:0;border-radius: 0; box-shadow: none; background: #F7F7F7; ">
+        <ul class="nav">
+            <li ng-repeat="i in menu" ng-class="getMenuItemClass(i)" >
+                <a href="{{i.location}}" ng-click="selectMenuItem(i)" style="color:#5f6a89"><strong>{{i.name | uppercase}}</strong></a>
+            </li>
+        </ul>
+    </div>
+</div>

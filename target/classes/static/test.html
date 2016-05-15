@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"  ng-app="test">
+<head>
+    <meta charset="UTF-8">
+    <title>GED | Test</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fontAwesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/font.css">
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/ng-module/angular-resource.min.js"></script>
+    <script type="text/javascript" src="js/ng-module/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="js/ng-module/angular-route.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</head>
+
+<body >
+
+    <div ng-controller="testController">
+        <button class="btn btn-large btn-primary" type="button" ng-click ="open(i)">{{butona}}</button>
+
+        <table class="table table-bordered" ng-show="i">
+            <tr>
+                <td>Name</td>
+                <td>prenom</td>
+                <td>mail</td>
+            </tr>
+
+            <tr ng-repeat="user in users ">
+                <td>{{user.name}}</td>
+                <td>{{user.prenom}}</td>
+                <td>{{user.mail}}</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+
+</body>
+
+
+</html>
