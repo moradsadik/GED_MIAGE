@@ -6,3 +6,9 @@
 .proj*
 mvnw
 mvnw.cmd
+/bin/
+/bin/
+/bin/
+/TestBoot.eml
+/TestBoot.iml
+/TestBoot.userlibraries
