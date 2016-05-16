@@ -9,7 +9,7 @@ L’objectif étant de créer une application Web et Mobile qui permet de gérer
  - Backend : 
  	+ SprinBoot
  	+ Hibernate/JPA
- -Front Web : 
+ - Front Web : 
  	+ AngularJs
  	+ Bootstrap (CSS)
  	+ HTML5
